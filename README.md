@@ -1,4 +1,4 @@
-# Codex
+# Codices
 By [Scott Macpherson](https://github.com/scottmacphersonmusic)
 
 ### Description
