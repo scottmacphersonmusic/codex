@@ -3,6 +3,9 @@ class CodicesController < ApplicationController
     @codex = Codex.new(codex_params)
     if @codex.save
       redirect_to @codex, notice: 'Codex Added'
+    else
+      flash[:error] = 'Error Adding Codex'
+      render :new
     end
   end
 
