@@ -13,6 +13,9 @@ class CodicesController < ApplicationController
     @codex = Codex.find(params[:id])
     if @codex.update_attributes(codex_params)
       redirect_to @codex, notice: 'Codex Saved'
+    else
+      flash[:error] = 'Codex Not Saved'
+      render :edit
     end
   end
 
