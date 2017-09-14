@@ -13,11 +13,11 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'pry-rails'
   gem 'rspec-rails', '~> 3.6'
 end
 
 group :development do
-  gem 'pry-rails'
   gem 'web-console', '~> 2.0'
 end
 
