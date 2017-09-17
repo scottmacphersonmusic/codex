@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917042445) do
+ActiveRecord::Schema.define(version: 20170917044447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "codex_songs", force: :cascade do |t|
+    t.integer  "codex_id"
+    t.integer  "song_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "codex_songs", ["codex_id"], name: "index_codex_songs_on_codex_id", using: :btree
+  add_index "codex_songs", ["song_id"], name: "index_codex_songs_on_song_id", using: :btree
 
   create_table "codices", force: :cascade do |t|
     t.string   "name"

@@ -12,4 +12,16 @@ describe Codex do
     subject.name = nil
     expect(subject).to_not be_valid
   end
+
+  describe 'Associations' do
+    it 'has many CodexSongs' do
+      assc = described_class.reflect_on_association(:codex_songs)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many Codices through CodexSongs' do
+      assc = described_class.reflect_on_association(:songs)
+      expect(assc.macro).to eq :has_many
+    end
+  end
 end
