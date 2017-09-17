@@ -77,4 +77,26 @@ describe CodicesController do
       end
     end
   end
+
+  describe 'DELETE destroy' do
+    let(:codex) { create :codex }
+
+    subject { delete :destroy, id: codex }
+
+    it 'deletes a codex' do
+      codex.reload
+      expect(Codex.count).to eq 1
+      expect{ subject }.to change{ Codex.count }.by(-1)
+    end
+
+    it 'assigns flash[:notice]' do
+      subject
+
+      expect(flash[:notice]).to be_present
+    end
+
+    it 'redirects to :index' do
+      expect(subject).to redirect_to :codices
+    end
+  end
 end
