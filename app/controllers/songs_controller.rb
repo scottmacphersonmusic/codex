@@ -5,6 +5,9 @@ class SongsController < ApplicationController
     if @song.save
       @song.codex_songs.create(codex: @codex, song: @song)
       redirect_to @codex, notice: "'#{@song.title}' Added To #{@codex.name}"
+    else
+      flash.now[:error] = 'Song Not Added'
+      render :new
     end
   end
 
