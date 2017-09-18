@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe SongsController do
-  describe 'POST create' do
-    let(:codex) { create :codex }
+  let(:codex) { create :codex }
 
+  describe 'POST create' do
     context 'when successful' do
       subject { post :create, song: attributes_for(:song), codex_id: codex }
 
@@ -21,7 +21,7 @@ describe SongsController do
         expect(flash[:notice]).to be_present
       end
 
-      it 'redirects to :show' do
+      it 'redirects to @codex' do
         expect(subject).to redirect_to assigns[:codex]
       end
     end
@@ -44,6 +44,56 @@ describe SongsController do
 
       it 'renders :new' do
         expect(subject).to render_template :new
+      end
+    end
+  end
+
+  describe 'PUT update' do
+    let(:song) { create :song }
+    before { create :codex_song, codex: codex, song: song }
+
+    context 'when successful' do
+      subject {
+        put :update,
+            codex_id: codex,
+            id: song,
+            song: { title: 'new_title' }
+      }
+
+      it 'updates a song' do
+        subject
+        expect(song.reload.title).to eq 'new_title'
+      end
+
+      it 'assigns flash[:notice]' do
+        subject
+        expect(flash[:notice]).to be_present
+      end
+
+      it 'redirects to @codex' do
+        expect(subject).to redirect_to assigns[:codex]
+      end
+    end
+
+    context 'when unsuccessful' do
+      subject {
+        put :update,
+            codex_id: codex,
+            id: song,
+            song: { title: nil }
+      }
+
+      it 'does not update a song' do
+        expect{ subject }.to_not change{ song.reload.title }
+      end
+
+      it 'assigns flash[:error]' do
+        subject
+        expect(flash[:error]).to be_present
+      end
+
+      it 'renders :edit' do
+        expect(subject).to render_template :edit
       end
     end
   end
