@@ -1,9 +1,8 @@
 class SongsController < ApplicationController
   def create
-    @song = codex.songs.build(song_params)
-    if @song.save
-      @song.codex_songs.create(codex: codex, song: @song)
-      redirect_to codex, notice: "'#{@song.title}' Saved To #{codex.name}"
+    if song.save
+      song.codex_songs.create(codex: codex, song: song)
+      redirect_to codex, notice: "'#{song.title}' Saved To #{codex.name}"
     else
       flash.now[:error] = 'Song Not Saved'
       render :new
@@ -11,13 +10,17 @@ class SongsController < ApplicationController
   end
 
   def update
-    @song = codex.songs.find(params[:id])
-    if @song.update_attributes(song_params)
+    if song.update_attributes(song_params)
       redirect_to codex, notice: 'Song Saved'
     else
       flash.now[:error] = 'Song Not Saved'
       render :edit
     end
+  end
+
+  def destroy
+    song.destroy
+    redirect_to codex, notice: "'#{song.title}' Deleted"
   end
 
   private
@@ -28,5 +31,11 @@ class SongsController < ApplicationController
 
   def codex
     @codex ||= Codex.find(params[:codex_id])
+  end
+
+  def song
+    @song ||= (
+      params[:id] ? codex.songs.find(params[:id]) : codex.songs.build(song_params)
+    )
   end
 end

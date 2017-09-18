@@ -97,4 +97,33 @@ describe SongsController do
       end
     end
   end
+
+  describe 'DELETE destroy' do
+    let(:song) { create :song }
+    before { create :codex_song, codex: codex, song: song }
+
+    subject { delete :destroy, id: song, codex_id: codex }
+
+    it 'deletes a song' do
+      expect{ subject }.to change{ Song.count }.by(-1)
+    end
+
+    it 'deletes the corresponding codex_song' do
+      expect(CodexSong.count).to eq 1
+      expect{ subject }.to change{ CodexSong.count }.by(-1)
+    end
+
+    it 'does not delete any associated codices' do
+      expect{ subject }.to_not change{ Codex.count }
+    end
+
+    it 'assigns flash[:notice]' do
+      subject
+      expect(flash[:notice]).to be_present
+    end
+
+    it 'redirects to @codex' do
+      expect(subject).to redirect_to assigns[:codex]
+    end
+  end
 end
