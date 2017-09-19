@@ -80,13 +80,22 @@ describe CodicesController do
 
   describe 'DELETE destroy' do
     let(:codex) { create :codex }
+    let(:song) { create :song }
+
+    before { create :codex_song, codex: codex, song: song }
 
     subject { delete :destroy, id: codex }
 
     it 'deletes a codex' do
-      codex.reload
-      expect(Codex.count).to eq 1
       expect{ subject }.to change{ Codex.count }.by(-1)
+    end
+
+    it 'deletes the corresponding codex_song' do
+      expect{ subject }.to change{ CodexSong.count }.by(-1)
+    end
+
+    it 'does not delete any associated songs' do
+      expect{ subject }.to_not change{ Song.count }
     end
 
     it 'assigns flash[:notice]' do
