@@ -49,6 +49,7 @@ describe InstrumentsController do
 
       it 'assigns flash[:notice]' do
         subject
+
         expect(flash[:notice]).to be_present
       end
 
@@ -66,12 +67,34 @@ describe InstrumentsController do
 
       it 'assigns flash[:error]' do
         subject
+
         expect(flash[:error]).to be_present
       end
 
       it 'renders :edit' do
         expect(subject).to render_template :edit
       end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    let(:instrument) { create :instrument }
+
+    subject { delete :destroy, id: instrument }
+
+    it 'deletes an instrument' do
+      instrument.reload
+      expect{ subject }.to change{ Instrument.count }.by(-1)
+    end
+
+    it 'assigns flash[:notice]' do
+      subject
+
+      expect(flash[:notice]).to be_present
+    end
+
+    it 'redirects to instruments#index' do
+      expect(subject).to redirect_to instruments_url
     end
   end
 end
