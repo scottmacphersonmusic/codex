@@ -100,6 +100,7 @@ describe SongsController do
 
   describe 'DELETE destroy' do
     let(:song) { create :song }
+
     before { create :codex_song, codex: codex, song: song }
 
     subject { delete :destroy, id: song, codex_id: codex }
@@ -109,7 +110,6 @@ describe SongsController do
     end
 
     it 'deletes the corresponding codex_song' do
-      expect(CodexSong.count).to eq 1
       expect{ subject }.to change{ CodexSong.count }.by(-1)
     end
 
@@ -119,6 +119,7 @@ describe SongsController do
 
     it 'assigns flash[:notice]' do
       subject
+
       expect(flash[:notice]).to be_present
     end
 

@@ -10,9 +10,8 @@ class InstrumentsController < ApplicationController
   end
 
   def update
-    @instrument = Instrument.find(params[:id])
-    if @instrument.update_attributes(instrument_params)
-      redirect_to @instrument, notice: 'Instrument Saved'
+    if instrument.update_attributes(instrument_params)
+      redirect_to instrument, notice: 'Instrument Saved'
     else
       flash.now[:error] = 'Instrument Not Saved'
       render :edit
@@ -20,8 +19,7 @@ class InstrumentsController < ApplicationController
   end
 
   def destroy
-    @instrument = Instrument.find(params[:id])
-    @instrument.destroy
+    instrument.destroy
     redirect_to instruments_url, notice: 'Instrument Deleted'
   end
 
@@ -29,5 +27,9 @@ class InstrumentsController < ApplicationController
 
   def instrument_params
     params.require(:instrument).permit(:name, :key)
+  end
+
+  def instrument
+    @instrument = Instrument.find(params[:id])
   end
 end
