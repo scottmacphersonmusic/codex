@@ -3,5 +3,7 @@ Rails.application.routes.draw do
     resources :songs
   end
 
+  resources :instruments
+
   root 'codices#index'
 end
