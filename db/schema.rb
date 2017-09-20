@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919204031) do
+ActiveRecord::Schema.define(version: 20170920022611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,34 @@ ActiveRecord::Schema.define(version: 20170919204031) do
     t.string   "key",        default: "C"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+  end
+
+  create_table "instruments_practice_sessions", force: :cascade do |t|
+    t.integer  "instrument_id"
+    t.integer  "practice_session_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "instruments_practice_sessions", ["instrument_id"], name: "index_instruments_practice_sessions_on_instrument_id", using: :btree
+  add_index "instruments_practice_sessions", ["practice_session_id"], name: "index_instruments_practice_sessions_on_practice_session_id", using: :btree
+
+  create_table "practice_session_songs", force: :cascade do |t|
+    t.integer  "practice_session_id"
+    t.integer  "practice_session_song_id"
+    t.integer  "instrument_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "practice_session_songs", ["instrument_id"], name: "index_practice_session_songs_on_instrument_id", using: :btree
+  add_index "practice_session_songs", ["practice_session_id"], name: "index_practice_session_songs_on_practice_session_id", using: :btree
+  add_index "practice_session_songs", ["practice_session_song_id"], name: "index_practice_session_songs_on_practice_session_song_id", using: :btree
+
+  create_table "practice_sessions", force: :cascade do |t|
+    t.string   "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "songs", force: :cascade do |t|

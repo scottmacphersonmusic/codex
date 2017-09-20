@@ -16,4 +16,11 @@ describe Instrument do
     subject.key = nil
     expect(subject).to_not be_valid
   end
+
+  describe 'Associations' do
+    it 'has and belongs to many PracticeSessions' do
+      assc = described_class.reflect_on_association(:practice_sessions)
+      expect(assc.macro).to eq :has_and_belongs_to_many
+    end
+  end
 end
