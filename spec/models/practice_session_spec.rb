@@ -4,6 +4,10 @@ describe PracticeSession do
   let(:codex) { create :codex }
   subject { codex.practice_sessions.build }
 
+  it 'defaults done to false' do
+    expect(subject.done?).to eq false
+  end
+
   it 'assigns instruments before validation' do
     create :instrument
     expect{ subject.valid? }.to change{ subject.instruments.first }
