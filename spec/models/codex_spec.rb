@@ -23,5 +23,10 @@ describe Codex do
       assc = described_class.reflect_on_association(:songs)
       expect(assc.macro).to eq :has_many
     end
+
+    it 'has many PracticeSessions' do
+      assc = described_class.reflect_on_association(:practice_sessions)
+      expect(assc.macro).to eq :has_many
+    end
   end
 end

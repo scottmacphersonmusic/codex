@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920022611) do
+ActiveRecord::Schema.define(version: 20170921213441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,21 +51,24 @@ ActiveRecord::Schema.define(version: 20170920022611) do
 
   create_table "practice_session_songs", force: :cascade do |t|
     t.integer  "practice_session_id"
-    t.integer  "practice_session_song_id"
+    t.integer  "song_id"
     t.integer  "instrument_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "practice_session_songs", ["instrument_id"], name: "index_practice_session_songs_on_instrument_id", using: :btree
   add_index "practice_session_songs", ["practice_session_id"], name: "index_practice_session_songs_on_practice_session_id", using: :btree
-  add_index "practice_session_songs", ["practice_session_song_id"], name: "index_practice_session_songs_on_practice_session_song_id", using: :btree
+  add_index "practice_session_songs", ["song_id"], name: "index_practice_session_songs_on_song_id", using: :btree
 
   create_table "practice_sessions", force: :cascade do |t|
     t.string   "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "codex_id"
   end
+
+  add_index "practice_sessions", ["codex_id"], name: "index_practice_sessions_on_codex_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.string   "title"
@@ -74,4 +77,5 @@ ActiveRecord::Schema.define(version: 20170920022611) do
     t.datetime "updated_at",               null: false
   end
 
+  add_foreign_key "practice_sessions", "codices"
 end
