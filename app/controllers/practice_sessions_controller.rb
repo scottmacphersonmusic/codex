@@ -2,7 +2,7 @@ class PracticeSessionsController < ApplicationController
   def create
     if practice_session.save
       @practice_session_song = practice_session.practice_session_songs.create
-      redirect_to @practice_session_song, notice: 'Slow Is Faster!'
+      redirect_to practice_session_song_path(@practice_session, @practice_session_song), notice: 'Slow Is Faster!'
     else
       flash[:error] = 'Could Not Start Practice Session'
       redirect_to codex

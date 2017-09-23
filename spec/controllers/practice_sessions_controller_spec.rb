@@ -33,7 +33,15 @@ describe PracticeSessionsController do
       end
 
       it 'redirects to @practice_session_song' do
-        expect(subject).to redirect_to assigns(:practice_session_song)
+        expect(subject)
+          .to(
+            redirect_to(
+              practice_session_song_path(
+                assigns(:practice_session),
+                assigns(:practice_session_song)
+              )
+            )
+          )
       end
     end
 

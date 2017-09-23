@@ -4,7 +4,11 @@ Rails.application.routes.draw do
     resources :practice_sessions, only: [:create, :update]
   end
 
-  resources :instruments, :practice_session_songs
+  resources :practice_session, only: [] do
+    resources :practice_session_songs, only: [:show, :create], as: :songs
+  end
+
+  resources :instruments
 
   root 'codices#index'
 end
