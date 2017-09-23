@@ -1,5 +1,5 @@
 class PracticeSessionsController < ApplicationController
-  def start
+  def create
     if practice_session.save
       @practice_session_song = practice_session.practice_session_songs.create
       redirect_to @practice_session_song, notice: 'Slow Is Faster!'
@@ -9,7 +9,7 @@ class PracticeSessionsController < ApplicationController
     end
   end
 
-  def stop
+  def update
     practice_session.update_attributes(done: true)
     redirect_to codex, notice: 'Progress, Not Perfection'
   end

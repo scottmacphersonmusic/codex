@@ -3,9 +3,9 @@ require 'rails_helper'
 describe PracticeSessionsController do
   let(:codex) { create :codex }
 
-  describe 'POST start' do
+  describe 'POST create' do
     subject {
-      post :start,
+      post :create,
            codex_id: codex,
            practice_session: attributes_for(:practice_session)
     }
@@ -56,11 +56,11 @@ describe PracticeSessionsController do
     end
   end
 
-  describe 'PUT stop' do
+  describe 'PUT update' do # mark as done; don't destroy
     let(:practice_session) { create :practice_session, codex: codex }
 
     subject {
-      put :stop,
+      put :update,
           codex_id: codex,
           id: practice_session
     }
