@@ -35,7 +35,7 @@ class SongsController < ApplicationController
 
   def song
     @song ||= (
-      params[:id] ? codex.songs.find(params[:id]) : codex.songs.build(song_params)
+      params[:id] ? Song.find(params[:id]) : codex.songs.build(song_params)
     )
   end
 end

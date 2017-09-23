@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe PracticeSessionsController do
-  describe 'POST start' do
-    let(:codex) { create :codex }
+  let(:codex) { create :codex }
 
+  describe 'POST start' do
     subject {
       post :start,
            codex_id: codex,
@@ -57,7 +57,30 @@ describe PracticeSessionsController do
   end
 
   describe 'PUT stop' do
-    it '' do
+    let(:practice_session) { create :practice_session, codex: codex }
+
+    subject {
+      put :stop,
+          codex_id: codex,
+          id: practice_session
+    }
+
+    before {
+      create :instrument
+      create :codex_song, codex: codex, song: create(:song)
+    }
+
+    it 'sets practice_session.done to true' do
+      subject
+      expect(PracticeSession.first.done?).to eq true
+    end
+
+    it 'assigns flash[:notice]' do
+      expect{ subject }.to change{ flash[:notice] }
+    end
+
+    it 'redirects to @codex' do
+      expect(subject).to redirect_to codex_path(assigns(:codex))
     end
   end
 end
