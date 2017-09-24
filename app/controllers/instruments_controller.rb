@@ -1,4 +1,14 @@
 class InstrumentsController < ApplicationController
+  before_action :instrument, only: [:show, :edit]
+
+  def index
+    @instruments = Instrument.all
+  end
+
+  def new
+    @instrument = Instrument.new
+  end
+
   def create
     @instrument = Instrument.new(instrument_params)
     if @instrument.save
@@ -7,6 +17,12 @@ class InstrumentsController < ApplicationController
       flash.now[:error] = 'Instrument Not Saved'
       render :new
     end
+  end
+
+  def show
+  end
+
+  def edit
   end
 
   def update

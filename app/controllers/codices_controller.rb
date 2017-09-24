@@ -1,4 +1,15 @@
 class CodicesController < ApplicationController
+  before_action :codex, only: [:show, :edit]
+
+  def index
+    @codices = Codex.all
+    @instruments = Instrument.all
+  end
+
+  def new
+    @codex = Codex.new
+  end
+
   def create
     if codex.save
       redirect_to @codex, notice: 'Codex Saved'
@@ -6,6 +17,12 @@ class CodicesController < ApplicationController
       flash.now[:error] = 'Codex Not Saved'
       render :new
     end
+  end
+
+  def show
+  end
+
+  def edit
   end
 
   def update

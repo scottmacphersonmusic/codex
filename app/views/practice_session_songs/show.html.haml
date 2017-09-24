@@ -1,0 +1,12 @@
+%h3 Practicing #{ @practice_session.codex.name }
+
+%hr
+
+%h1 #{ @practice_session_song.song.title }
+%h2 in concert #{ @practice_session_song.song.key }
+%h2 on #{ @practice_session_song.instrument.name } (#{ @practice_session_song.instrument.key})
+
+%hr
+
+= button_to 'Next', practice_session_songs_path(@practice_session)
+= button_to 'Done', codex_practice_session_path(@practice_session.codex, @practice_session), { method: :put }

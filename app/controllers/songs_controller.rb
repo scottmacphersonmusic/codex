@@ -1,4 +1,11 @@
 class SongsController < ApplicationController
+  before_action :codex, only: [:new, :show, :edit]
+  before_action :song, only: [:show, :edit]
+
+  def new
+    @song = codex.songs.build
+  end
+
   def create
     if song.save
       song.codex_songs.create(codex: codex, song: song)
@@ -7,6 +14,12 @@ class SongsController < ApplicationController
       flash.now[:error] = 'Song Not Saved'
       render :new
     end
+  end
+
+  def show
+  end
+
+  def edit
   end
 
   def update

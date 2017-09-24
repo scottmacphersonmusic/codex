@@ -1,3 +1,16 @@
-%h1 resonance
+%h1 resonat.io
 
-= image_tag 'http://bagger288.com/goldenmaster/wp-content/uploads/2012/01/STA-harmonic-series.jpg'
+= link_to 'New Instrument', new_instrument_path
+- if @instruments.any?
+  %h2 Instruments
+  - @instruments.each do |inst|
+    %li #{ inst.name} (#{ inst.key })
+
+%hr
+
+= link_to 'New Codex', new_codex_path
+- if @codices.any?
+  %h2 Codices
+  %ul
+  - @codices.each do |codex|
+    %li= link_to codex.name, codex

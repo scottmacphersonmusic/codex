@@ -1,0 +1,11 @@
+%h1 #{@codex.name}
+= button_to 'Practice', codex_practice_sessions_path(@codex)
+= link_to 'Edit Codex', edit_codex_path(@codex)
+%hr
+
+%h2 Songs
+= link_to 'Add Song', new_codex_song_path(@codex)
+- if @codex.songs.any?
+  %ul
+  - @codex.songs.each do |song|
+    %li= link_to "#{ song.title } (#{ song.key })", [@codex, song]

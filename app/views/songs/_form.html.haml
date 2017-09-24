@@ -1,0 +1,8 @@
+= form_for [@codex, @song] do |f|
+  = f.label :title
+  = f.text_field :title
+  %br
+  = f.label :key
+  = f.text_field :key
+  %br
+  = f.submit 'Save'
